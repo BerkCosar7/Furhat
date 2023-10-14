@@ -2,6 +2,7 @@ package furhatos.app.newskill11.flow
 
 import furhatos.app.newskill11.flow.main.Idle
 import furhatos.app.newskill11.flow.main.Greeting
+import furhatos.app.newskill11.flow.main.PreGreeting
 import furhatos.app.newskill11.setting.DISTANCE_TO_ENGAGE
 import furhatos.app.newskill11.setting.MAX_NUMBER_OF_USERS
 import furhatos.flow.kotlin.State
@@ -17,12 +18,12 @@ val Init: State = state {
     onEntry {
         /** start interaction */
         when {
-            furhat.isVirtual() -> goto(Greeting) // Convenient to bypass the need for user when running Virtual Furhat
+            furhat.isVirtual() -> goto(PreGreeting) // Convenient to bypass the need for user when running Virtual Furhat
             users.hasAny() -> {
                 furhat.attend(users.random)
-                goto(Greeting)
+                goto(PreGreeting)
             }
-            else -> goto(Idle)
+            else -> goto(PreGreeting)
         }
     }
 

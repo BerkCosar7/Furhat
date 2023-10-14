@@ -236,7 +236,10 @@ class One : Intent() {
             "One",
             "I'm choosing one",
             "first box",
+            "first pox",
             "first",
+            "Box one",
+            "pox one",
             "1",
             "I'll take the first one",
             "I want to pick the initial box",
@@ -252,7 +255,8 @@ class One : Intent() {
             "Once",
             "1st",
             "Furst",
-            "The primary box"
+            "The primary box",
+            "The primary pox"
 
         )
     }
@@ -263,10 +267,12 @@ class Two : Intent() {
             "Two",
             "I'm choosing two",
             "Second box",
+            "Second pox",
             "Second",
+            "Box two",
+            "pox two",
             "2",
             "I'll take the second one",
-            "I want to pick the next box",
             "Number two, please",
             "Let's go with the second",
             "Give me the box labeled two",
@@ -278,13 +284,14 @@ class Two : Intent() {
             "Twice",
             "2nd",
             "Secund",
-            "The next box"
+            "chicken pox"
         )
     }
 }
 class Three : Intent() {
     override fun getExamples(lang: Language): List<String> {
         return listOf(
+            "Box 3",
             "Three",
             "I'm choosing three",
             "third box",
@@ -313,6 +320,7 @@ class Three : Intent() {
 class Four : Intent() {
     override fun getExamples(lang: Language): List<String> {
         return listOf(
+            "Box 4",
             "Four",
             "I'm choosing four",
             "Fourth box",
@@ -359,7 +367,8 @@ class Five : Intent() {
             "Fibe",
             "5th",
             "Last box",
-            "The fifth one"
+            "The fifth one",
+            "Box five"
         )
     }
 }
@@ -367,6 +376,7 @@ class Five : Intent() {
 class Six : Intent() {
     override fun getExamples(lang: Language): List<String> {
         return listOf(
+            "Box six",
             "Six",
             "I'm choosing six",
             "Sixth box",
@@ -405,7 +415,8 @@ class Seven : Intent() {
             "Sev'n",
             "7th",
             "Last box",
-            "The seventh one"
+            "The seventh one",
+            "Box seven"
         )
     }
 }
@@ -428,7 +439,8 @@ class Eight : Intent() {
             "Et",
             "8th",
             "Last box",
-            "The eighth one"
+            "The eighth one",
+            "Box eight"
         )
     }
 }
@@ -436,6 +448,7 @@ class Eight : Intent() {
 class Nine : Intent() {
     override fun getExamples(lang: Language): List<String> {
         return listOf(
+            "Box nine",
             "Nine",
             "I'm choosing nine",
             "Ninth box",
@@ -627,11 +640,32 @@ class EasyIntent: Intent() {
             "Opt for an easy level",
             "Set the game to easy",
             "I want to start with easy",
+            "I want easy",
             "Easy",
             "easy mode",
             "i want easy",
             "I am choosing easy",
-            "I am choosing easy mode"
+            "I am choosing easy mode",
+            "Easy",
+            "Easel",
+            "Ease",
+            "East",
+            "Eats",
+            "Izzy",
+            "Isle",
+            "Elsie",
+            "Icy",
+            "Eyes",
+            "Isy",
+            "Ezzy",
+            "Eisley",
+            "Esy",
+            "Ezzy",
+            "Ise",
+            "Ezzy",
+            "Ize",
+            "Isi",
+            "Easy-peasy"
 
 
         )
@@ -648,11 +682,29 @@ class HardIntent: Intent() {
             "Opt for a hard level",
             "Set the game to hard",
             "I want to start with hard",
+            "I want hard",
             "Hard",
             "hard mode",
             "i want hard",
             "I am choosing hard",
-            "I am choosing hard mode"
+            "I am choosing hard mode",
+            "I choose the hard mode",
+            "Select hard difficulty",
+            "I'd like to play on hard",
+            "Hard mode, please",
+            "Opt for a hot level",
+            "Set the game to hot",
+            "I want to start with hot",
+            "Hot",
+            "hot mode",
+            "i want hot",
+            "I am choosing hot",
+            "I am choosing hot mode",
+            "Hard",
+            "Hot",
+            "Hut",
+            "Heart",
+            "Hurd"
         )
     }
 }

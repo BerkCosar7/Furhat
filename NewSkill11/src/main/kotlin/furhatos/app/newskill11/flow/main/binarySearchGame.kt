@@ -17,6 +17,7 @@ import furhatos.nlu.common.No
 import furhatos.nlu.common.Yes
 
 val numberToWordMap = mutableMapOf<Int, String>(
+    0 to "zero",
     1 to "one",
     2 to "two",
     3 to "three",

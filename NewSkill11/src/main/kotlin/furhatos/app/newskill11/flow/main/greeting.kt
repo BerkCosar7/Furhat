@@ -8,9 +8,25 @@ import furhatos.flow.kotlin.*
 import furhatos.nlu.common.No
 import furhatos.nlu.common.Yes
 import java.security.SecureRandom
+import furhatos.gestures.Gestures.getResourceGesture
 import furhatos.*
+import furhatos.gestures.Gestures
 import kotlin.random.Random
 
+
+val correctAnswer = utterance {
+    random{
+        +Gestures.getResourceGesture("/ca1.json")!!
+        +Gestures.getResourceGesture("/ca2.json")!!
+        +Gestures.getResourceGesture("/ca3.json")!!
+    }
+}
+val wrongAnswer = utterance {
+    random{
+        +Gestures.getResourceGesture("/wa1.json")!!
+        +Gestures.getResourceGesture("/wa2.json")!!
+    }
+}
 
 
 // variables for number guessing game
@@ -100,11 +116,8 @@ var ta= listOf(
 
 )
 
-
-
-val Greeting: State = state(Parent) {
-
-    onEntry {
+val PreGreeting: State =state(Parent){
+    onEntry{
         furhat.say(
             {
                 random{
@@ -116,8 +129,18 @@ val Greeting: State = state(Parent) {
                 }
             }
         )
+        delay(50)
+        furhat.say("Welcome to A I center. My name is Furhat.")
+        goto(Greeting)
+    }
+}
 
-        furhat.say("Welcome to A I center. My name is Furhat. I can make jokes, play tictactoe with you, play number guessing game with you, or give you a quiz about our university and a i .")
+val Greeting: State = state(Parent) {
+
+    onEntry {
+
+
+        furhat.say("I can make jokes, play tictactoe with you, play number guessing game with you, or give you a quiz about our university and a i .")
         furhat.ask("Which one do you prefer?")
     }
 
@@ -157,8 +180,8 @@ val QuizInfoState: State = state(Parent) {
         furhat.say("the second question is about the A I center")
         delay(200)
         furhat.say("the last question is about artificial intelligence")
-        delay(200)
-        furhat.say("Please when you are giving answer, only say a, b, or c")
+        delay(100)
+        furhat.say("Please when you are giving answer,say a, b, or c. But you can also say, option a, option b, or option c")
         delay(100)
         furhat.say("good luck")
         delay(100)
@@ -185,7 +208,7 @@ val Quiz: State= state(Parent) {
                 num = secureRandom.nextInt(9)
 
                 furhat.say("question 1. ")
-                delay(1500)
+                delay(500)
                 furhat.say(""+tq[num])
                 delay(500)
                 furhat.say("a")
@@ -212,7 +235,7 @@ val Quiz: State= state(Parent) {
                 val secureRandom = SecureRandom()
                 num = secureRandom.nextInt(9)+10
                 furhat.say("question 2. ")
-                delay(1500)
+                delay(500)
                 furhat.say(""+tq[num])
                 delay(500)
                 furhat.say("a")
@@ -241,7 +264,7 @@ val Quiz: State= state(Parent) {
                 val secureRandom = SecureRandom()
                 num = secureRandom.nextInt(9)+20
                 furhat.say("question 3. ")
-                delay(1500)
+                delay(500)
                 furhat.say(""+tq[num])
                 delay(500)
                 furhat.say("a")
@@ -289,13 +312,24 @@ val Quiz: State= state(Parent) {
         var co=ta[num][3]
         qcount=0
         if(co==0){
-            furhat.say("correct")
+            furhat.say(correctAnswer)
+            delay(2000)
+            furhat.say("Correct !")
+            delay(2300)
             cqn++
         }
         else{
-            furhat.say("False. the correct answer was")
-            delay(200)
+
+            furhat.say(wrongAnswer)
+            delay(2000)
+            furhat.say("False. ")
+            delay(2200)
+            furhat.say("the correct answer was")
+            delay(50)
             furhat.say(""+ta[num][co as Int])
+            delay(300)
+
+
         }
         reentry()
     }
@@ -304,13 +338,23 @@ val Quiz: State= state(Parent) {
         var co=ta[num][3]
         qcount=0
         if(co==1){
-            furhat.say("correct")
+
+            furhat.say(correctAnswer)
+            delay(2000)
+            furhat.say("Correct !")
+            delay(2300)
             cqn++
         }
         else{
-            furhat.say("False. the correct answer was")
-            delay(200)
+            furhat.say(wrongAnswer)
+            delay(2000)
+            furhat.say("False. ")
+            delay(2200)
+            furhat.say("the correct answer was")
+            delay(50)
             furhat.say(""+ta[num][co as Int])
+            delay(300)
+
         }
         reentry()
     }
@@ -319,13 +363,21 @@ val Quiz: State= state(Parent) {
         var co=ta[num][3]
         qcount=0
         if(co==2){
+            furhat.say(correctAnswer)
+            delay(2000)
             furhat.say("Correct !")
+            delay(2300)
             cqn++
         }
         else{
-            furhat.say("False. the correct answer was")
-            delay(200)
+            furhat.say(wrongAnswer)
+            delay(2000)
+            furhat.say("False. ")
+            delay(2200)
+            furhat.say("the correct answer was")
+            delay(50)
             furhat.say(""+ta[num][co as Int])
+            delay(300)
         }
         reentry()
     }
@@ -344,8 +396,10 @@ val Quiz: State= state(Parent) {
 // ****************** tic tac toe game ******************
 val TicTacToe: State = state(Parent){
     onEntry {
-        furhat.say("Each box is represented with a number. Since I am a very intelligent robot, I can memorize which moves" +
-                " have been made. But to make it easy for you I have a pen and paper next to me. You can use them to write the moves" +
+        furhat.say("I think tic tac toe is a fun game. Since I am a very intelligent robot, I can memorize which moves" +
+                " have been made. But to make it easy for you, I have a pen and paper next to me." +
+                " The paper has tic tac toe template. Each number represent a box" +
+                " You can use them to write the moves" +
                 " and tell me the box number when choosing one place"
         )
         delay(150)
@@ -357,9 +411,16 @@ val TicTacToe: State = state(Parent){
 
     }
     onResponse<EasyIntent>(){
+        delay(200)
+        furhat.say("okay. I'll go easy on you")
         goto(TTTStart)
     }
     onResponse<HardIntent> {
+        delay(200)
+        furhat.say("Hmm. You are confident.")
+        delay(100)
+        furhat.say("Let's see")
+        delay(200)
         goto(TTTStart)
     }
 
@@ -387,7 +448,7 @@ val TTTStart: State = state(Parent){
                     +"where are you choosing",
                     "choose a box",
                     "choose",
-                    "Which box are you choosig"
+                    "Which box are you choosing"
                 )
             })
         }
@@ -695,6 +756,7 @@ val endWithWinner:State = state(Parent){
     onEntry {
         furhat.say("the game ends")
         tttList=mutableListOf(0,0,0,0,0,0,0,0,0)
+        goto(Greeting)
     }
 }
 
@@ -702,6 +764,7 @@ val endWithTie:State = state(Parent){
     onEntry {
         furhat.say("the game ends")
         tttList=mutableListOf(0,0,0,0,0,0,0,0,0)
+        goto(Greeting)
     }
 }
 
@@ -718,6 +781,7 @@ val binaryGame: State = state(Parent) {
         if(mIn!=mAx){
             goto(Searcher)
         }
+        furhat.say("I think I found your number")
         furhat.ask("Is your number "+ numberToWordMap[mIn])
     }
     onResponse<Yes> {
@@ -802,7 +866,7 @@ val Jokee : State =state(Parent) {
                 +"Why don't skeletons fight each other? They don't have the guts."
             }
         })
-        goto(Greeting)
+        goto(PreGreeting)
     }
 }
 
