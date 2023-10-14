@@ -3,8 +3,7 @@ package furhatos.app.newskill11.flow.main
 import furhatos.records.Location
 import furhatos.flow.kotlin.*
 import furhatos.app.newskill11.flow.Parent
-import furhatos.app.newskill11.flow.nlu.nIntent
-import furhatos.app.newskill11.flow.nlu.pIntent
+
 import furhatos.app.newskill11.flow.nlu.*
 
 import furhatos.app.newskill11.flow.Parent

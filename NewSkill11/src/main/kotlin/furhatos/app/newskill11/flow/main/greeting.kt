@@ -158,7 +158,11 @@ val QuizInfoState: State = state(Parent) {
         delay(200)
         furhat.say("the last question is about artificial intelligence")
         delay(200)
-        furhat.say("good luck. the quiz is starting now")
+        furhat.say("Please when you are giving answer, only say a, b, or c")
+        delay(100)
+        furhat.say("good luck")
+        delay(100)
+        furhat.say(" the quiz is starting now")
         delay(200)
         goto(Quiz)
     }
@@ -196,7 +200,7 @@ val Quiz: State= state(Parent) {
                 delay(300)
                 furhat.say(""+ta[num][2])
                 delay(500)
-                furhat.ask("Which of these options is correct. Tell your answer such as a, b, or c.")
+                furhat.ask("Which of these options is correct.")
             }
             else {
                 furhat.ask("Tell your answer.")
@@ -260,7 +264,22 @@ val Quiz: State= state(Parent) {
         }
         else{
             qn=0
-            furhat.say("Out of 3 question you have found the correct answer for "+ numberToWordMap[cqn]+" times")
+            delay(200)
+            furhat.say("Out of 3 questions, you have found the correct answer for, "+ numberToWordMap[cqn]+" times!")
+            delay(200)
+            if(cqn==0) {
+                furhat.say("Don't worry. You can play another time again!")
+            }
+            else if(cqn==1) {
+                furhat.say("You didn't do too bad")
+            }
+            else if(cqn==2) {
+                furhat.say("You did quite a good job. Congratulations!")
+            }
+            else if(cqn==3) {
+                furhat.say("3 correct questions? You were excellent. Congratulations!")
+            }
+
             delay(2000)
             goto(Greeting)
         }
@@ -274,8 +293,8 @@ val Quiz: State= state(Parent) {
             cqn++
         }
         else{
-            furhat.say("the correct answer was")
-            delay(1500)
+            furhat.say("False. the correct answer was")
+            delay(200)
             furhat.say(""+ta[num][co as Int])
         }
         reentry()
@@ -289,8 +308,8 @@ val Quiz: State= state(Parent) {
             cqn++
         }
         else{
-            furhat.say("the correct answer was")
-            delay(1500)
+            furhat.say("False. the correct answer was")
+            delay(200)
             furhat.say(""+ta[num][co as Int])
         }
         reentry()
@@ -300,12 +319,12 @@ val Quiz: State= state(Parent) {
         var co=ta[num][3]
         qcount=0
         if(co==2){
-            furhat.say("correct")
+            furhat.say("Correct !")
             cqn++
         }
         else{
-            furhat.say("the correct answer was")
-            delay(1500)
+            furhat.say("False. the correct answer was")
+            delay(200)
             furhat.say(""+ta[num][co as Int])
         }
         reentry()
@@ -314,8 +333,6 @@ val Quiz: State= state(Parent) {
 
 
 }
-
-
 
 
 
@@ -695,7 +712,7 @@ val endWithTie:State = state(Parent){
 
 // ****************** number guessing game ******************
 val binaryGame: State = state(Parent) {
-    nOfGuesses+=1;
+
 
     onEntry {
         if(mIn!=mAx){
@@ -727,10 +744,11 @@ val Found: State =state(Parent){
         goto(Greeting)
     }
     onResponse<Yes>(){
-        furhat.say("When I ask you if your number is graeter than a number, according to your answer, " +
-                "each time, I got rid of the one half of the possibilities. which gives me logarithmic complexity." +
+        furhat.say("I used binary search algorihtm to find your number" +
+                "When I ask you if your number is graeter than a number, according to your answer, " +
+                "each time, I got rid of the one half of the possibilities. which gives me logarithmic complexity" +
                 "By doing that, in the worst case, I can find your " +
-                "answer at most, 7 trials. ")
+                "answer, at most 7 trials. ")
         delay(300)
         furhat.say("How wonderful!")
         delay(2000)
@@ -743,14 +761,16 @@ val Found: State =state(Parent){
 
 val Searcher: State = state(Parent) {
     onEntry{
+        nOfGuesses+=1;
         furhat.ask("Is your  number greater than "+numberToWordMap[middle])
+
     }
-    onResponse<Yes> {
+    onResponse(listOf(Yes(),UpIntent())){
         mIn=middle+1
         middle=(mIn+mAx)/2
         goto(binaryGame)
     }
-    onResponse<No> {
+    onResponse(listOf(No(),DownIntent())) {
         mAx=middle
         middle=(mAx+mIn)/2
         goto(binaryGame)
