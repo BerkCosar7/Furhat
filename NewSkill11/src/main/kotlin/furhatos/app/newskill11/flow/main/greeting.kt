@@ -7,6 +7,7 @@ import furhatos.app.newskill11.flow.nlu.*
 import furhatos.flow.kotlin.*
 import furhatos.nlu.common.No
 import furhatos.nlu.common.Yes
+import java.security.SecureRandom
 import furhatos.*
 import kotlin.random.Random
 
@@ -21,26 +22,82 @@ var nOfGuesses = 0
 //variables for tictactoe
 var tttList= mutableListOf(0,0,0,0,0,0,0,0,0)
 
-var tq= listOf("How many people graduated from Koc University until now?",
-    "Who gave the first lecture of Koc University history on September 4 1993?",
+var tq= listOf(
+    //Topic 1 Questions
+    "How many people graduated from Koch University until now?",
+    "Who gave the first lecture of Koch University history on September 4 1993?",
     "When did the first Phd student graduate from Koch University?",
+    "Which club of the university hosted the marketing theorist Jack Trout for the opening speech at The road to Differentiation in 2005?",
+    "Which company had a research center at Koch University?",
+    "Which of the following is NOT a department at Koç University?",
+    "Which one is located at Koç University Rumelifeneri Campus?",
+    "Who won Rahmi Koch Science medal in 2022?",
+    "When did Kworks open?",
+    "What is the total area of Koch University?",
+    //Topic 2 Questions
     "During the period of April 2022-April 2023 which institute hasn’t collaborated with the KUIS AI Center?",
     "How many externally funded grants were awarded to KUIS AI Faculty members between April 2022 and April 2023?",
     "What was the total budget allocated for the externally funded grants received by KUIS AI Faculty during the period April 2022 and April 2023?",
+    "How many GPUs does Koch University high-performance computation facility have?",
+    "Which is not one of the research areas of the Koch University AI center?",
+    "When was the Artificial Intelligence Center at Koç University established?",
+    "Which institution partnered with Koç University to establish the Artificial Intelligence Center, aiming to combine scientific resources with financial support?",
+    "which affiliated Lab is not one of the labs under the research area Systems and AI in AI Center",
+    "How many projects are completed at Koch University after KUIS AI opened?",
+    "How many alumni does KUIS AI center have?",
+    //Topic 3 Questions
     "Who is known as one of the founders of artificial intelligence?",
     "Which of the following is not an example of AI?",
-    "In which of the following areas has AI work typically not been done?"
+    "In which of the following areas has AI work typically not been done?",
+    "What is the primary goal of Natural Language Processing (NLP) in the field of AI?",
+    "What does the Turing Test measure?",
+    "Who developed the Turing Test?",
+    "Which AI technique is primarily used for clustering similar data points in unsupervised learning?",
+    "Which of the following is a popular open-source machine learning library developed by Facebook?",
+    " In the context of AI, what does neural, in neural network refer to?",
+    "Which of the following is NOT a type of neural network architecture?"
 )
 var ta= listOf(
+    //Topic 1 Answers
     listOf("18907","19197","19485",1),
-    listOf("Umran İnan","Rahmi Koc","Vehbi Koc",2),
+    listOf("Umran İnan","Rahmi Koch","Vehbi Koch",2),
     listOf("2006","2007","2008",0),
+    listOf("Business Club","IES","Marketing Club",2),
+    listOf("Intel","Google","Microsoft",2),
+    listOf(" Media and Visual Arts","Architecture","Medicine",1),
+    listOf("Sevgi Gernoohl Cultural Center","Koch Hospital","Koch University Research Center for Anatolian Civilizations ",0),
+    listOf("Metin Sit tee","Bilkee Yuhlduhz","Hatiga Altuu",1),
+    listOf("2012","2013","2018",1),
+    listOf("150000 meter square","230000 meter square","280000 meter square",1),
+    //Topic 2 Answers
     listOf("Harvard University","Stanford University","University of Oxford",1),
     listOf("21","24","25",2),
     listOf("38 Million Turkish Liras","40 Million Turkish Liras","44 Million Turkish Liras",1),
+    listOf("147","156","153",2),
+    listOf("Natural Language Processing","Human-Computer Interaction","AI Ethics and Fairness",2),
+    listOf("January 2020","February 2019","February 2020",2),
+    listOf("Ziraat Bankasuh", "Yapı Kredi Bankasuh", "İsh Bankasuh", 2),
+    listOf("ParCore Lab", "DISNET", "MVGL", 2),
+    listOf("15","20","22",1),
+    listOf("22","25","32",0),
+
+
+    //Topic 3 Answers
     listOf("Elon Musk","Herbert Simon","John McCarthy",2),
     listOf("Siri","ChatGPT","MacBook ",2),
-    listOf("Predicting stock market trends"," Natural language processing for chatbots","Determining the age of old wines by taste ",2)
+    listOf("Predicting stock market trends"," Natural language processing for chatbots","Determining the age of old wines by taste ",2),
+    listOf("generating creative content", "Enabling computers to understand and work with human language", "enhancing computer vision for object recognition", 1),
+    listOf("The speed of a computer", "The accuracy of a machine learning model", "A machine's ability to exhibit human-like intelligence", 2),
+    listOf("Alan Turing", "Julius Turing", "John Turing", 0),
+    listOf("Decision Trees", "K-Nearest Neighbors", "K-Means Clustering", 2),
+    listOf("Keras", "Scikit-learn", "PyTorch", 2),
+    listOf("Computer circuits", "Biological brain neurons", "Network cables", 1),
+    listOf("Convolutional Neural Network ", "Recursive Neural Network", "Linear Regression Network", 2)
+
+
+
+
+
 )
 
 
@@ -55,6 +112,7 @@ val Greeting: State = state(Parent) {
                     +"Hi!"
                     +"Good day"
                     +"Hi there"
+                    +"Hello, I'm Furhat, the friendly social robot. I'm here to make talking to machines easier and more fun. I can chat with you using a human-like face and voice, so you don't have to feel like you're talking to a computer. I use smart technology to have conversations and help with things like answering questions or giving information. It's all about making technology feel more friendly and helpful in your everyday life."
                 }
             }
         )
@@ -97,7 +155,9 @@ val Quiz: State= state(Parent) {
         if (qn==1){
             if (qcount==0){
                 qcount++
-                num=(1..3).random()
+                val secureRandom = SecureRandom()
+                num = secureRandom.nextInt(9)
+
                 furhat.say("question 1. ")
                 delay(1500)
                 furhat.say(""+tq[num])
@@ -117,7 +177,7 @@ val Quiz: State= state(Parent) {
                 furhat.ask("Which of these options is correct. Tell your answer such as a, b, or c.")
             }
             else {
-                furhat.ask("Tell your answer such as a, b, or c.")
+                furhat.ask("Tell your answer.")
             }
         }
         else if (qn==2){
@@ -136,16 +196,16 @@ val Quiz: State= state(Parent) {
                 delay(300)
                 furhat.say(""+ta[num][1])
                 delay(500)
-                furhat.say("a")
+                furhat.say("c")
                 delay(300)
                 furhat.say(""+ta[num][2])
                 delay(500)
-                furhat.ask("Which of these options is correct. Tell your answer such as a, b, or c.")
+                furhat.ask("Which of these options is correct.")
 
             }
             else {
 
-                furhat.ask(" Tell your answer such as a, b, or c.")
+                furhat.ask(" Tell your answer.")
             }
         }
         else if (qn==3){
@@ -168,10 +228,10 @@ val Quiz: State= state(Parent) {
                 delay(300)
                 furhat.say(""+ta[num][2])
                 delay(500)
-                furhat.ask("Which of these options is correct. Tell your answer such as a, b, or c.")
+                furhat.ask("Which of these options is correct.")
             }
             else {
-                furhat.ask(" Tell your answer such as a, b, or c.")
+                furhat.ask(" Tell your answer.")
             }
         }
         else{
