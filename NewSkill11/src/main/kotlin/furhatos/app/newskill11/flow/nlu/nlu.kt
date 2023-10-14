@@ -156,7 +156,8 @@ class Three : Intent() {
             "I'm choosing three",
             "third box",
             "third",
-            "3"
+            "3",
+            "tree"
         )
     }
 }
@@ -294,6 +295,46 @@ class C: Intent() {
             "C is the right answer for me.",
             "I'm inclined to pick C."
 
+        )
+    }
+}
+
+class EasyIntent: Intent() {
+    override fun getExamples(lang: Language): List<String> {
+        return listOf(
+            "I choose the easy mode",
+            "Select easy difficulty",
+            "I'd like to play on easy",
+            "Easy mode, please",
+            "Opt for an easy level",
+            "Set the game to easy",
+            "I want to start with easy",
+            "Easy",
+            "easy mode",
+            "i want easy",
+            "I am choosing easy",
+            "I am choosing easy mode"
+
+
+        )
+    }
+}
+
+class HardIntent: Intent() {
+    override fun getExamples(lang: Language): List<String> {
+        return listOf(
+            "I choose the hard mode",
+            "Select hard difficulty",
+            "I'd like to play on hard",
+            "Hard mode, please",
+            "Opt for a hard level",
+            "Set the game to hard",
+            "I want to start with hard",
+            "Hard",
+            "hard mode",
+            "i want hard",
+            "I am choosing hard",
+            "I am choosing hard mode"
         )
     }
 }

@@ -117,7 +117,7 @@ val Greeting: State = state(Parent) {
             }
         )
 
-        furhat.say("Welcome to AI center. My name is Furhat. I can make jokes, play tictactoe with you, or give you a quiz about our university and ai.")
+        furhat.say("Welcome to AI center. My name is Furhat. I can make jokes, play tictactoe with you, play number guessing game with you, or give you a quiz about our university and ai.")
         furhat.ask("Which one do you prefer?")
     }
 
@@ -135,12 +135,34 @@ val Greeting: State = state(Parent) {
     }
 
     onResponse<QuizIntent>{
-        goto(Quiz)
+        goto(QuizInfoState)
     }
 
 }
 
-//quiz game
+
+
+
+
+
+
+// ****************** quiz game ******************
+
+val QuizInfoState: State = state(Parent) {
+    onEntry{
+        furhat.say("In this quiz game I will ask you three questions. " +
+                "the first question is about our university"
+        )
+        delay(200)
+        furhat.say("the second question is about the AI center")
+        delay(200)
+        furhat.say("the last question is about artificial intelligence")
+        delay(200)
+        furhat.say("good luck. the quiz is starting now")
+        delay(200)
+        goto(Quiz)
+    }
+}
 val Quiz: State= state(Parent) {
 
     var qn=1
@@ -183,7 +205,8 @@ val Quiz: State= state(Parent) {
         else if (qn==2){
             if (qcount==0){
                 qcount++
-                num=(4..6).random()
+                val secureRandom = SecureRandom()
+                num = secureRandom.nextInt(9)+10
                 furhat.say("question 2. ")
                 delay(1500)
                 furhat.say(""+tq[num])
@@ -211,7 +234,8 @@ val Quiz: State= state(Parent) {
         else if (qn==3){
             if (qcount==0){
                 qcount++
-                num=(7..9).random()
+                val secureRandom = SecureRandom()
+                num = secureRandom.nextInt(9)+20
                 furhat.say("question 3. ")
                 delay(1500)
                 furhat.say(""+tq[num])
@@ -286,21 +310,39 @@ val Quiz: State= state(Parent) {
         }
         reentry()
     }
-    onNoResponse {
-        qcount++
-        furhat.say("please choose one of the options such as a, b, or c.")
 
-    }
 
 
 }
 
-// tic tac toe game
+
+
+
+
+
+
+
+
+
+// ****************** tic tac toe game ******************
 val TicTacToe: State = state(Parent){
     onEntry {
         furhat.say("Each box is represented with a number. Since I am a very intelligent robot, I can memorize which moves" +
-                " have been made. But to make it easy for you I have a pen and paper next to me. You can use them to write the moves")
+                " have been made. But to make it easy for you I have a pen and paper next to me. You can use them to write the moves" +
+                " and tell me the box number when choosing one place"
+        )
+        delay(150)
+        furhat.say(" and lastly. the game has 2 modes which are easy and hard mode")
+        furhat.say("Which mode do you want to play")
+        delay(150)
+        furhat.ask("Easy or hard?")
 
+
+    }
+    onResponse<EasyIntent>(){
+        goto(TTTStart)
+    }
+    onResponse<HardIntent> {
         goto(TTTStart)
     }
 
@@ -315,20 +357,27 @@ val TTTStart: State = state(Parent){
             goto(endWithTie)
         }
         else if (winChecker(tttList) == 1) {
-            furhat.say("You won")
+            furhat.say("You won the game")
             goto(endWithWinner)
         }
         else if (winChecker(tttList)==2){
-            furhat.say("I won")
+            furhat.say("I won the game")
             goto(endWithWinner)
         }
         else {
-            furhat.ask("where  are you choosing")
+            furhat.ask({
+                random(
+                    +"where are you choosing",
+                    "choose a box",
+                    "choose",
+                    "Which box are you choosig"
+                )
+            })
         }
     }
     onResponse<One>{
         if(tttList[0]==1 || tttList[0]==2){
-            furhat.say("full, say other")
+            furhat.say("that box is full, choose another box")
             reentry()
         }
         else{
@@ -338,7 +387,7 @@ val TTTStart: State = state(Parent){
     }
     onResponse<Two>{
         if(tttList[1]==1 || tttList[1]==2){
-            furhat.say("full, say other")
+            furhat.say("that box is full, choose another box")
             reentry()
         }
         else{
@@ -348,7 +397,7 @@ val TTTStart: State = state(Parent){
     }
     onResponse<Three>{
         if(tttList[2]==1 || tttList[2]==2){
-            furhat.say("full, say other")
+            furhat.say("that box is full, choose another box")
             reentry()
         }
         else{
@@ -358,7 +407,7 @@ val TTTStart: State = state(Parent){
     }
     onResponse<Four>{
         if(tttList[3]==1 || tttList[3]==2){
-            furhat.say("full, say other")
+            furhat.say("that box is full, choose another box")
             reentry()
         }
         else{
@@ -368,7 +417,7 @@ val TTTStart: State = state(Parent){
     }
     onResponse<Five>{
         if(tttList[4]==1 || tttList[4]==2){
-            furhat.say("full, say other")
+            furhat.say("that box is full, choose another box")
             reentry()
         }
         else{
@@ -378,7 +427,7 @@ val TTTStart: State = state(Parent){
     }
     onResponse<Six>{
         if(tttList[5]==1 || tttList[5]==2){
-            furhat.say("full, say other")
+            furhat.say("that box is full, choose another box")
             reentry()
         }
         else{
@@ -388,7 +437,7 @@ val TTTStart: State = state(Parent){
     }
     onResponse<Seven>{
         if(tttList[6]==1 || tttList[6]==2){
-            furhat.say("full, say another")
+            furhat.say("that box is full, choose another box")
             reentry()
         }
         else{
@@ -398,7 +447,7 @@ val TTTStart: State = state(Parent){
     }
     onResponse<Eight>{
         if(tttList[7]==1 || tttList[7]==2){
-            furhat.say("full, say other")
+            furhat.say("that box is full, choose another box")
             reentry()
         }
         else{
@@ -408,7 +457,7 @@ val TTTStart: State = state(Parent){
     }
     onResponse<Nine>{
         if(tttList[8]==1 || tttList[8]==2){
-            furhat.say("full, say other")
+            furhat.say("that box is full, choose another box")
             reentry()
         }
         else{
@@ -417,7 +466,7 @@ val TTTStart: State = state(Parent){
         }
     }
     onNoResponse {
-        furhat.say("ONly numbers from 1 to 9")
+        furhat.say("Only numbers from 1 to 9")
         reentry()
     }
 
@@ -471,6 +520,160 @@ val robotPlaying: State = state(Parent){
     }
 }
 
+val TTTStartEasy: State = state(Parent){
+    onEntry{
+        //add winchecker
+        println(tttList)
+        if(tttList.contains(0)==false){
+            furhat.say("tie")
+            goto(endWithTie)
+        }
+        else if (winChecker(tttList) == 1) {
+            furhat.say("You won the game")
+            goto(endWithWinner)
+        }
+        else if (winChecker(tttList)==2){
+            furhat.say("I won the game")
+            goto(endWithWinner)
+        }
+        else {
+            furhat.ask({
+                random(
+                    +"where are you choosing",
+                    "choose a box",
+                    "choose",
+                    "Which box are you choosig"
+                )
+            })
+        }
+    }
+    onResponse<One>{
+        if(tttList[0]==1 || tttList[0]==2){
+            furhat.say("that box is full, choose another box")
+            reentry()
+        }
+        else{
+            tttList[0]=1
+            goto(robotPlayingEasy)
+        }
+    }
+    onResponse<Two>{
+        if(tttList[1]==1 || tttList[1]==2){
+            furhat.say("that box is full, choose another box")
+            reentry()
+        }
+        else{
+            tttList[1]=1
+            goto(robotPlayingEasy)
+        }
+    }
+    onResponse<Three>{
+        if(tttList[2]==1 || tttList[2]==2){
+            furhat.say("that box is full, choose another box")
+            reentry()
+        }
+        else{
+            tttList[2]=1
+            goto(robotPlayingEasy)
+        }
+    }
+    onResponse<Four>{
+        if(tttList[3]==1 || tttList[3]==2){
+            furhat.say("that box is full, choose another box")
+            reentry()
+        }
+        else{
+            tttList[3]=1
+            goto(robotPlayingEasy)
+        }
+    }
+    onResponse<Five>{
+        if(tttList[4]==1 || tttList[4]==2){
+            furhat.say("that box is full, choose another box")
+            reentry()
+        }
+        else{
+            tttList[4]=1
+            goto(robotPlayingEasy)
+        }
+    }
+    onResponse<Six>{
+        if(tttList[5]==1 || tttList[5]==2){
+            furhat.say("that box is full, choose another box")
+            reentry()
+        }
+        else{
+            tttList[5]=1
+            goto(robotPlayingEasy)
+        }
+    }
+    onResponse<Seven>{
+        if(tttList[6]==1 || tttList[6]==2){
+            furhat.say("that box is full, choose another box")
+            reentry()
+        }
+        else{
+            tttList[6]=1
+            goto(robotPlayingEasy)
+        }
+    }
+    onResponse<Eight>{
+        if(tttList[7]==1 || tttList[7]==2){
+            furhat.say("that box is full, choose another box")
+            reentry()
+        }
+        else{
+            tttList[7]=1
+            goto(robotPlayingEasy)
+        }
+    }
+    onResponse<Nine>{
+        if(tttList[8]==1 || tttList[8]==2){
+            furhat.say("that box is full, choose another box")
+            reentry()
+        }
+        else{
+            tttList[8]=1
+            goto(robotPlayingEasy)
+        }
+    }
+    onNoResponse {
+        furhat.say("Only numbers from 1 to 9")
+        reentry()
+    }
+
+
+}
+
+val robotPlayingEasy: State = state(Parent){
+    onEntry {
+        println("rob "+ tttList)
+        if(tttList.contains(0)==false){
+            delay(1500)
+            furhat.say("None of us has won")
+            goto(endWithTie)
+        }
+        else if (winChecker(tttList) == 1) {
+            furhat.say("You won")
+            delay(1500)
+            goto(endWithWinner)
+        }
+        else if (winChecker(tttList)==2){
+            furhat.say("I won")
+            delay(1500)
+            goto(endWithWinner)
+        }
+        else{
+            var rNum= randomPlay(tttList)
+            tttList[rNum]=2
+            furhat.say("I'm choosing " + numberToWordMap[rNum+1])
+            delay(1500)
+            goto(TTTStartEasy)
+        }
+    }
+}
+
+
 val endWithWinner:State = state(Parent){
     onEntry {
         furhat.say("the game ends")
@@ -486,22 +689,26 @@ val endWithTie:State = state(Parent){
 }
 
 
-//number guessing game
+
+
+
+
+// ****************** number guessing game ******************
 val binaryGame: State = state(Parent) {
     nOfGuesses+=1;
 
     onEntry {
-        furhat.ask("Is your number " + numberToWordMap[middle])
+        if(mIn!=mAx){
+            goto(Searcher)
+        }
+        furhat.ask("Is your number "+ numberToWordMap[mIn])
     }
     onResponse<Yes> {
         goto(Found);
     }
-    onResponse<No> {
-        goto(Searcher)
 
-    }
+
 }
-
 
 val Found: State =state(Parent){
     onEntry {
@@ -534,7 +741,7 @@ val Searcher: State = state(Parent) {
     }
 }
 
-//joke generator
+//  ****************** joke generator  ******************
 val Jokee : State =state(Parent) {
     onEntry {
         furhat.say({
@@ -564,7 +771,7 @@ val Jokee : State =state(Parent) {
 }
 
 
-//functions for tictactoe
+//  ****************** functions for tictactoe  ******************
 fun winChecker(a: MutableList<Int>): Int{
     if((a[0]==a[1] && a[0]==a[2] && a[0]==1) ||
         (a[3]==a[4] && a[3]==a[5] && a[3]==1) ||
@@ -631,7 +838,9 @@ fun toWin(b:MutableList<Int>): Int{
 
 fun randomPlay(d:MutableList<Int>): Int{
     while(true){
-        val randomPlace = (0..8).random()
+        val secureRandom = SecureRandom()
+
+        val randomPlace = secureRandom.nextInt(8)
         if (d[randomPlace]==0){
             return randomPlace
 
