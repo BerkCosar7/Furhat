@@ -32,29 +32,29 @@ var tq= listOf(
     "Which of the following is NOT a department at Koç University?",
     "Which one is located at Koç University Rumelifeneri Campus?",
     "Who won Rahmi Koch Science medal in 2022?",
-    "When did Kworks open?",
+    "When did K works open?",
     "What is the total area of Koch University?",
     //Topic 2 Questions
-    "During the period of April 2022-April 2023 which institute hasn’t collaborated with the KUIS AI Center?",
-    "How many externally funded grants were awarded to KUIS AI Faculty members between April 2022 and April 2023?",
+    "During the period of April 2022 and April 2023 which institute has not collaborated with the KUIS A I Center?",
+    "How many externally funded grants were awarded to KUIS A I Faculty members between April 2022 and April 2023?",
     "What was the total budget allocated for the externally funded grants received by KUIS AI Faculty during the period April 2022 and April 2023?",
     "How many GPUs does Koch University high-performance computation facility have?",
-    "Which is not one of the research areas of the Koch University AI center?",
+    "Which is not one of the research areas of the Koch University A I center?",
     "When was the Artificial Intelligence Center at Koç University established?",
     "Which institution partnered with Koç University to establish the Artificial Intelligence Center, aiming to combine scientific resources with financial support?",
-    "which affiliated Lab is not one of the labs under the research area Systems and AI in AI Center",
-    "How many projects are completed at Koch University after KUIS AI opened?",
-    "How many alumni does KUIS AI center have?",
+    "which affiliated Lab is not one of the labs under the research area Systems and A I in A I Center",
+    "How many projects are completed at Koch University after KUIS A I opened?",
+    "How many alumni does KUIS A I center have?",
     //Topic 3 Questions
     "Who is known as one of the founders of artificial intelligence?",
-    "Which of the following is not an example of AI?",
-    "In which of the following areas has AI work typically not been done?",
-    "What is the primary goal of Natural Language Processing (NLP) in the field of AI?",
+    "Which of the following is not an example of A I ?",
+    "In which of the following areas has A I work typically not been done?",
+    "What is the primary goal of Natural Language Processing (NLP) in the field of A I ?",
     "What does the Turing Test measure?",
     "Who developed the Turing Test?",
-    "Which AI technique is primarily used for clustering similar data points in unsupervised learning?",
+    "Which A I technique is primarily used for clustering similar data points in unsupervised learning?",
     "Which of the following is a popular open-source machine learning library developed by Facebook?",
-    " In the context of AI, what does neural, in neural network refer to?",
+    "In the context of A I , what does neural, in neural network refer to?",
     "Which of the following is NOT a type of neural network architecture?"
 )
 var ta= listOf(
@@ -62,7 +62,7 @@ var ta= listOf(
     listOf("18907","19197","19485",1),
     listOf("Umran İnan","Rahmi Koch","Vehbi Koch",2),
     listOf("2006","2007","2008",0),
-    listOf("Business Club","IES","Marketing Club",2),
+    listOf("Business Club","I ES","Marketing Club",2),
     listOf("Intel","Google","Microsoft",2),
     listOf(" Media and Visual Arts","Architecture","Medicine",1),
     listOf("Sevgi Gernoohl Cultural Center","Koch Hospital","Koch University Research Center for Anatolian Civilizations ",0),
@@ -74,10 +74,10 @@ var ta= listOf(
     listOf("21","24","25",2),
     listOf("38 Million Turkish Liras","40 Million Turkish Liras","44 Million Turkish Liras",1),
     listOf("147","156","153",2),
-    listOf("Natural Language Processing","Human-Computer Interaction","AI Ethics and Fairness",2),
+    listOf("Natural Language Processing","Human-Computer Interaction","A I Ethics and Fairness",2),
     listOf("January 2020","February 2019","February 2020",2),
     listOf("Ziraat Bankasuh", "Yapı Kredi Bankasuh", "İsh Bankasuh", 2),
-    listOf("ParCore Lab", "DISNET", "MVGL", 2),
+    listOf("ParCore Lab", "DISNET", "M V G L ", 2),
     listOf("15","20","22",1),
     listOf("22","25","32",0),
 
@@ -117,7 +117,7 @@ val Greeting: State = state(Parent) {
             }
         )
 
-        furhat.say("Welcome to AI center. My name is Furhat. I can make jokes, play tictactoe with you, play number guessing game with you, or give you a quiz about our university and ai.")
+        furhat.say("Welcome to A I center. My name is Furhat. I can make jokes, play tictactoe with you, play number guessing game with you, or give you a quiz about our university and a i .")
         furhat.ask("Which one do you prefer?")
     }
 
@@ -154,7 +154,7 @@ val QuizInfoState: State = state(Parent) {
                 "the first question is about our university"
         )
         delay(200)
-        furhat.say("the second question is about the AI center")
+        furhat.say("the second question is about the A I center")
         delay(200)
         furhat.say("the last question is about artificial intelligence")
         delay(200)
@@ -718,9 +718,25 @@ val Found: State =state(Parent){
         mAx = 100;
         middle = (mIn + mAx) / 2
         nOfGuesses = 0
+        delay(1500)
+        furhat.ask("Do you want to know how I found your number")
 
+
+    }
+    onResponse<No>(){
         goto(Greeting)
     }
+    onResponse<Yes>(){
+        furhat.say("When I ask you if your number is graeter than a number, according to your answer, " +
+                "each time, I got rid of the one half of the possibilities. which gives me logarithmic complexity." +
+                "By doing that, in the worst case, I can find your " +
+                "answer at most, 7 trials. ")
+        delay(300)
+        furhat.say("How wonderful!")
+        delay(2000)
+        goto(Greeting)
+    }
+
 
 
 }
