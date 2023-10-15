@@ -11,6 +11,7 @@ import java.security.SecureRandom
 import furhatos.gestures.Gestures.getResourceGesture
 import furhatos.*
 import furhatos.gestures.Gestures
+import furhatos.nlu.common.Greeting
 import kotlin.random.Random
 
 
@@ -163,6 +164,25 @@ val Greeting: State = state(Parent) {
 
 }
 
+var PostPlaying : State= state(Parent) {
+
+    onEntry {
+        delay(1000)
+        furhat.say("Do you want to try other games ?")
+    }
+    onResponse<Yes> {
+        furhat.say("I'm glad to hear that")
+        goto(Greeting)
+    }
+    onResponse<No> {
+        furhat.say("Okey. Thank you for playing with me ")
+        delay(10000)
+        goto(Greeting)
+    }
+
+
+}
+
 
 
 
@@ -304,7 +324,7 @@ val Quiz: State= state(Parent) {
             }
 
             delay(2000)
-            goto(Greeting)
+            goto(PostPlaying)
         }
     }
     onResponse<A> {
@@ -756,7 +776,7 @@ val endWithWinner:State = state(Parent){
     onEntry {
         furhat.say("the game ends")
         tttList=mutableListOf(0,0,0,0,0,0,0,0,0)
-        goto(Greeting)
+        goto(PostPlaying)
     }
 }
 
@@ -764,7 +784,7 @@ val endWithTie:State = state(Parent){
     onEntry {
         furhat.say("the game ends")
         tttList=mutableListOf(0,0,0,0,0,0,0,0,0)
-        goto(Greeting)
+        goto(PostPlaying)
     }
 }
 
@@ -805,7 +825,7 @@ val Found: State =state(Parent){
 
     }
     onResponse<No>(){
-        goto(Greeting)
+        goto(PostPlaying)
     }
     onResponse<Yes>(){
         furhat.say("I used binary search algorihtm to find your number" +
@@ -816,7 +836,7 @@ val Found: State =state(Parent){
         delay(300)
         furhat.say("How wonderful!")
         delay(2000)
-        goto(Greeting)
+        goto(PostPlaying)
     }
 
 
@@ -866,7 +886,7 @@ val Jokee : State =state(Parent) {
                 +"Why don't skeletons fight each other? They don't have the guts."
             }
         })
-        goto(PreGreeting)
+        goto(PostPlaying)
     }
 }
 
