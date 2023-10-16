@@ -223,7 +223,9 @@ class QuizIntent : Intent() {
             "Quiz competition",
             "I'm ready for a quiz challenge",
             "Quiz challenge - my choice",
-            "I want to take the queen"
+            "I want to take the queen",
+            "Chris"
+
 
         )
     }

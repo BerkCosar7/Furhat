@@ -168,7 +168,7 @@ var PostPlaying : State= state(Parent) {
 
     onEntry {
         delay(1000)
-        furhat.say("Do you want to try other games ?")
+        furhat.ask("Do you want to try other games ?")
     }
     onResponse<Yes> {
         furhat.say("I'm glad to hear that")
@@ -433,7 +433,7 @@ val TicTacToe: State = state(Parent){
     onResponse<EasyIntent>(){
         delay(200)
         furhat.say("okay. I'll go easy on you")
-        goto(TTTStart)
+        goto(TTTStartEasy)
     }
     onResponse<HardIntent> {
         delay(200)
