@@ -442,7 +442,8 @@ class Eight : Intent() {
             "8th",
             "Last box",
             "The eighth one",
-            "Box eight"
+            "Box eight",
+            "Hey"
         )
     }
 }
@@ -471,7 +472,8 @@ class Nine : Intent() {
             "Neinen",
             "9th",
             "Last box",
-            "The ninth one"
+            "The ninth one",
+            "mine"
         )
     }
 }

@@ -14,7 +14,7 @@ import furhatos.gestures.Gestures
 import furhatos.nlu.common.Greeting
 import kotlin.random.Random
 
-
+// tictactoe
 val correctAnswer = utterance {
     random{
         +Gestures.getResourceGesture("/ca1.json")!!
@@ -77,7 +77,7 @@ var tq= listOf(
     "Which club of the university hosted the marketing theorist Jack Trout for the opening speech at The road to Differentiation in 2005?",
     "Which company had a research center at Koch University?",
     "Which of the following is NOT a department at Koch University?",
-    "Which one is located at Koç University Rumelifeneri Campus?",
+    "Which one is located at Koch University Rumelifeneri Campus?",
     "Who won Rahmi Koch Science medal in 2022?",
     "When did K works open?",
     "What is the total area of Koch University?",
@@ -87,11 +87,11 @@ var tq= listOf(
     "What was the total budget allocated for the externally funded grants received by KUIS Ay I Faculty during the period April 2022 and April 2023?",
     "How many GPUs does Koch University high-performance computation facility have?",
     "Which is not one of the research areas of the Koch University Ay I center?",
-    "When was the Artificial Intelligence Center at Koç University established?",
-    "Which institution partnered with Koç University to establish the Artificial Intelligence Center, aiming to combine scientific resources with financial support?",
+    "When was the Artificial Intelligence Center at Koch University established?",
+    "Which institution partnered with Koch University to establish the Artificial Intelligence Center, aiming to combine scientific resources with financial support?",
     "which affiliated Lab is not one of the labs under the research area Systems and Ay I in Ay I Center",
     "How many projects are completed at Koch University after KUIS Ay I opened?",
-    "How many alumni does KUIS A I center have?",
+    "How many alumni does KUIS Ay I center have?",
     //Topic 3 Questions
     "Who is known as one of the founders of artificial intelligence?",
     "Which of the following is not an example of Ay I ?",
@@ -101,7 +101,7 @@ var tq= listOf(
     "Who developed the Turing Test?",
     "Which Ay I technique is primarily used for clustering similar data points in unsupervised learning?",
     "Which of the following is a popular open-source machine learning library developed by Facebook?",
-    "In the context of A I , what does neural, in neural network refer to?",
+    "In the context of Ay I , what does neural, in neural network refer to?",
     "Which of the following is NOT a type of neural network architecture?"
 )
 var ta= listOf(
@@ -113,7 +113,7 @@ var ta= listOf(
     listOf("Intel","Google","Microsoft",2),
     listOf(" Media and Visual Arts","Architecture","Medicine",1),
     listOf("Sevgi Gernoohl Cultural Center","Koch Hospital","Koch University Research Center for Anatolian Civilizations ",0),
-    listOf("Metin Sit tee","Bilkee Yuhlduhz","Hatiga Altuu",1),
+    listOf("Metin Sit tee","Bilkee Yuhlduhz","Hatige Altuu",1),
     listOf("2012","2013","2018",1),
     listOf("150000 meter square","230000 meter square","280000 meter square",1),
     //Topic 2 Answers
@@ -121,7 +121,7 @@ var ta= listOf(
     listOf("21","24","25",2),
     listOf("38 Million Turkish Liras","40 Million Turkish Liras","44 Million Turkish Liras",1),
     listOf("147","156","153",2),
-    listOf("Natural Language Processing","Human-Computer Interaction","A I Ethics and Fairness",2),
+    listOf("Natural Language Processing","Human-Computer Interaction","Ay I Ethics and Fairness",2),
     listOf("January 2020","February 2019","February 2020",2),
     listOf("Ziraat Bankasuh", "Yapı Kredi Bankasuh", "İsh Bankasuh", 2),
     listOf("ParCore Lab", "DISNET", "M V G L ", 2),
@@ -169,7 +169,7 @@ val PreGreeting: State =state(Parent){
         furhat.say(s5)
 
 
-        furhat.say("Welcome to A I center.")
+        furhat.say("Welcome to Ay I center.")
         furhat.gesture(Gestures.BigSmile)
         goto(Greeting)
     }
@@ -180,7 +180,7 @@ val Greeting: State = state(Parent) {
     onEntry {
 
 
-        furhat.say("I can make jokes, play tictactoe with you, play number guessing game with you, or give you a quiz about our university and a i .")
+        furhat.say("I can make jokes, play tictactoe with you, play number guessing game with you, or give you a quiz about our university and ay i .")
         furhat.say(randomGesture)
         furhat.ask("Which one do you prefer?")
     }
@@ -189,8 +189,8 @@ val Greeting: State = state(Parent) {
         furhat.say("Choose a number between 1 and 100.")
         val aa=utterance{
             +"but don't tell it out loud."
-            +Gestures.ExpressAnger
         }
+        furhat.say(aa)
         furhat.say("1 and 100 are included")
         delay(3000)
         goto(binaryGame)
@@ -223,7 +223,7 @@ var PostPlaying : State= state(Parent) {
     onResponse<No> {
         furhat.say("Okey. Thank you for playing with me. Good bye! ")
         furhat.gesture(Gestures.GazeAway)
-        delay(10000)
+        delay(20000)
         goto(Greeting)
     }
 
@@ -245,12 +245,12 @@ val QuizInfoState: State = state(Parent) {
                 "the first question is about our university"
         )
         delay(200)
-        furhat.say("the second question is about the A I center")
+        furhat.say("the second question is about the Ay I center")
         furhat.say(randomGesture)
         delay(200)
         furhat.say("the last question is about artificial intelligence")
         delay(100)
-        furhat.say("Please when you are giving answer,say a, b, or c. But you can also say, option a, option b, or option c")
+        furhat.say("Please when you are giving answer, say a, b, or c. But you can also say, option a, option b, or option c")
         delay(100)
         furhat.say("good luck")
         furhat.gesture(Gestures.BigSmile)
@@ -359,7 +359,7 @@ val Quiz: State= state(Parent) {
             qn=0
             delay(200)
             furhat.say("Out of 3 questions, you have found the correct answer for, "+ numberToWordMap[cqn]+" times!")
-            delay(200)
+            delay(500)
             if(cqn==0) {
                 val q11= utterance {
                     +"Don't worry."
@@ -481,8 +481,16 @@ val Quiz: State= state(Parent) {
 // ****************** tic tac toe game ******************
 val TicTacToe: State = state(Parent){
     onEntry {
+        val show= utterance {
+            +"I have a pen and paper next to me."
+            +Gestures.getResourceGesture("/sol.json")!!
+        }
         furhat.say("I think tic tac toe is a fun game. Since I am a very intelligent robot, I can memorize which moves" +
-                " have been made. But to make it easy for you, I have a pen and paper next to me." +
+                " have been made. ")
+        furhat.gesture(Gestures.getResourceGesture("/sol.json")!!)
+        furhat.say(" But to make it easy for you, I have a pen and paper next to me. ")
+
+        furhat.say(
                 " The paper has tic tac toe template. Each number represent a box" +
                 " You can use them to write the moves" +
                 " and tell me the box number when choosing one place"
@@ -503,7 +511,7 @@ val TicTacToe: State = state(Parent){
     onResponse<HardIntent> {
         delay(200)
         val hmm= utterance {
-            +"Hmm. You are confident."
+            +"You are confident."
             +Gestures.Thoughtful
         }
         furhat.say(hmm)
@@ -529,22 +537,32 @@ val TTTStart: State = state(Parent){
             goto(endWithTie)
         }
         else if (winChecker(tttList) == 1) {
-            furhat.say("You won the game")
+            val lostGame=utterance{
+                +"You won the game and I lost"
+//                +Gestures.getResourceGesture("/sad.json")!!
+
+            }
+            furhat.say(lostGame)
             goto(endWithWinner)
         }
         else if (winChecker(tttList)==2){
-            furhat.say("I won the game")
+            val wonGame=utterance{
+                +"I won the game"
+                +Gestures.getResourceGesture("/happy.json")!!
+
+            }
+            furhat.say(wonGame)
             goto(endWithWinner)
         }
         else {
             if(qann==0){
                 furhat.ask({
-                    random(
-                        +"where are you choosing",
-                        "choose a box",
-                        "choose",
-                        "Which box are you choosing"
-                    )
+                    random {
+                        +"where are you choosing"
+                        +"choose a box"
+                        +"choose"
+                        +"Which box are you choosing"
+                    }
                 })
                 qann++
 
@@ -672,6 +690,12 @@ val robotPlaying: State = state(Parent){
         }
         else{
             var embed=embedder(tttList)
+            val secureRandom = SecureRandom()
+
+            val randomP = secureRandom.nextInt(3)
+            if (randomP%2 ==0){
+                furhat.gesture((Gestures.Thoughtful))
+            }
 
             if (embed!=10){
                 tttList[embed]=2
@@ -709,22 +733,32 @@ val TTTStartEasy: State = state(Parent){
             goto(endWithTie)
         }
         else if (winChecker(tttList) == 1) {
-            furhat.say("You won the game")
+            val lostGame=utterance{
+                +"You won the game and I lost"
+//                +Gestures.getResourceGesture("/sad.json")!!
+
+            }
+            furhat.say(lostGame)
             goto(endWithWinner)
         }
         else if (winChecker(tttList)==2){
-            furhat.say("I won the game")
+            val wonGame=utterance{
+                +"I won the game"
+                +Gestures.getResourceGesture("/happy.json")!! // this will change to actual gesture
+
+            }
+            furhat.say(wonGame)
             goto(endWithWinner)
         }
         else {
             if (qan==0){
                 furhat.ask({
-                    random(
-                        +"where are you choosing",
-                        +"choose a box",
-                        +"choose",
+                    random {
+                        +"where are you choosing"
+                        +"choose a box"
+                        +"choose"
                         +"Which box are you choosing"
-                    )
+                    }
                 })
                 qan++
 
@@ -836,7 +870,7 @@ val TTTStartEasy: State = state(Parent){
 
 val robotPlayingEasy: State = state(Parent){
     onEntry {
-        println("rob "+ tttList)
+
         if(tttList.contains(0)==false){
             delay(1500)
             furhat.say("None of us has won")
@@ -853,6 +887,13 @@ val robotPlayingEasy: State = state(Parent){
             goto(endWithWinner)
         }
         else{
+            val secureRandom = SecureRandom()
+
+            val randomP = secureRandom.nextInt(3)
+            if (randomP%2 ==0){
+                furhat.gesture((Gestures.Thoughtful))
+            }
+
             var rNum= randomPlay(tttList)
             tttList[rNum]=2
             furhat.say("I'm choosing " + numberToWordMap[rNum+1])
@@ -907,20 +948,30 @@ val binaryGame: State = state(Parent) {
 val Found: State =state(Parent){
     onEntry {
         furhat.say("I found your number in " + numberToWordMap[nOfGuesses] +
-                " tries. I won! thank you for playing with me!")  // gesture will be added here
-        mIn = 1;
-        mAx = 100;
-        middle = (mIn + mAx) / 2
-        nOfGuesses = 0
+                " tries.")
+        val happy= utterance {
+            +"I won! thank you for playing with me!"
+            +Gestures.getResourceGesture("/happy.json")!!
+        }
+        furhat.say(happy)  // gesture will be added here
+
         delay(1500)
         furhat.ask("Do you want to know how I found your number")
 
 
     }
     onResponse<No>(){
+        mIn = 1;
+        mAx = 100;
+        middle = (mIn + mAx) / 2
+        nOfGuesses = 0
         goto(PostPlaying)
     }
     onResponse<Yes>(){
+        mIn = 1;
+        mAx = 100;
+        middle = (mIn + mAx) / 2
+        nOfGuesses = 0
         furhat.say("I used binary search algorihtm to find your number" +
                 "When I ask you if your number is graeter than a number, according to your answer, " +
                 "each time, I got rid of the one half of the possibilities. which gives me logarithmic complexity" +
@@ -938,7 +989,7 @@ val Found: State =state(Parent){
 
 val Searcher: State = state(Parent) {
     onEntry{
-        nOfGuesses+=1;
+
 
         val secureRandom = SecureRandom()
 
@@ -948,15 +999,18 @@ val Searcher: State = state(Parent) {
         }
         furhat.ask("Is your  number greater than "+numberToWordMap[middle])
 
+
     }
     onResponse(listOf(Yes(),UpIntent())){
         mIn=middle+1
         middle=(mIn+mAx)/2
+        nOfGuesses+=1;
         goto(binaryGame)
     }
     onResponse(listOf(No(),DownIntent())) {
         mAx=middle
         middle=(mAx+mIn)/2
+        nOfGuesses+=1;
         goto(binaryGame)
     }
 }
@@ -987,6 +1041,7 @@ val Jokee : State =state(Parent) {
             }
         })
         furhat.gesture(Gestures.BigSmile)
+        delay(1000)
         goto(PostPlaying)
     }
 }
